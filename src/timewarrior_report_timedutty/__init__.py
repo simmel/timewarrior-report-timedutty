@@ -10,24 +10,10 @@ from timewreport.parser import TimeWarriorParser
 def main():
     parser = TimeWarriorParser(sys.stdin)
 
-  # for interval in parser.get_intervals():
-  #     line = '"{}"'.format(interval.get_start())
-  #     line += ',"{}"'.format(interval.get_end()) if not interval.is_open() else ''
-
-  #     for tag in interval.get_tags():
-  #         line += ',"{}"'.format(tag)
-
-  #     print(line)
     totals = dict()
 
     for interval in parser.get_intervals():
         tracked = interval.get_duration()
-
-      # for tag in interval.get_tags():
-      #     if tag in totals:
-      #         totals[tag] += tracked
-      #     else:
-      #         totals[tag] = tracked
 
         tag = " ".join(interval.get_tags())
         if tag in totals:
