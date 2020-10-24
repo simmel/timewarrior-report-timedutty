@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "timewarrior-report-timedutty"
+version = "0.1.0"
+description = "A Timewarrior report for Timeduty"
+authors = ["Simon Lundström <simlu+github@su.se>"]
+
+[tool.poetry.dependencies]
+python = "^3.5"
+timew-report = "^1.3"
+
+[tool.poetry.scripts]
+timewarrior-report-timedutty = 'timewarrior_report_timedutty:main'
+
+[build-system]
+requires = ["poetry-core>=1.0.0a5"]
+build-backend = "poetry.core.masonry.api"
