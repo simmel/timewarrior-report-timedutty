@@ -1,11 +1,19 @@
 # pylint: disable=missing-module-docstring,missing-function-docstring
 __version__ = '0.1.0'
 
-import math
 import sys
+from collections import OrderedDict
 
 from timewreport.parser import TimeWarriorParser
 
+# weeks? = 5 days a week 144000
+# days = 8 hours in a day 28800
+# hours = 3600
+# minutes = 60
+__time_intervals = OrderedDict({
+    "H": 3600,
+    "M": 60,
+    })
 
 def main():
     parser = TimeWarriorParser(sys.stdin)
@@ -39,10 +47,18 @@ def main():
     # Compose table rows.
     grand_total = 0
     for tag in sorted(totals):
-        formatted = math.ceil(totals[tag].seconds / 60 / 60)
-        grand_total += math.ceil(totals[tag].seconds / 60 / 60)
+        formatted = duration(seconds=totals[tag].total_seconds())
+        grand_total += totals[tag].total_seconds()
         print('{:{width}} {:10}'.format(tag, formatted, width=max_width))
 
     # Compose total.
     print('{} {}'.format(' ' * max_width, '----------'))
-    print('{:{width}} {:10}'.format('Total', grand_total, width=max_width))
+    print('{:{width}} {:10}'.format('Total', duration(seconds=grand_total), width=max_width))
+
+def duration(*, seconds):
+    duration = "P"
+    for interval, interval_seconds in __time_intervals.items():
+        (interval_value, seconds) = divmod(seconds, interval_seconds)
+        duration += str(int(interval_value))
+        duration += interval
+    return duration
