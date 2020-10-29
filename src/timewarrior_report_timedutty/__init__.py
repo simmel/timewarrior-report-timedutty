@@ -1,6 +1,7 @@
 # pylint: disable=missing-module-docstring,missing-function-docstring
 __version__ = '0.1.0'
 
+import logging
 import sys
 from collections import OrderedDict
 
@@ -14,6 +15,8 @@ __time_intervals = OrderedDict({
     "H": 3600,
     "M": 60,
     })
+
+logger = logging.getLogger('timedutty')
 
 def main():
     parser = TimeWarriorParser(sys.stdin)
@@ -58,7 +61,9 @@ def main():
 def duration(*, seconds):
     duration = "P"
     for interval, interval_seconds in __time_intervals.items():
+        logger.debug("%s is %s long", interval, interval_seconds)
         (interval_value, seconds) = divmod(seconds, interval_seconds)
         duration += str(int(interval_value))
         duration += interval
+        logger.debug("%s is %s and left %s", interval, interval_value, seconds)
     return duration
