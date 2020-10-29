@@ -9,4 +9,4 @@ def test_version():
     assert __version__ == '0.1.0'
 
 def test_duration_1h_30m():
-    assert "P1H30M" == gurken()
+    assert "P1H30M" == gurken(seconds=3780)
