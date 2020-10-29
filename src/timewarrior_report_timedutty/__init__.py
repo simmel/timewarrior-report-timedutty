@@ -59,7 +59,7 @@ def main():
     print('{:{width}} {:10}'.format('Total', duration(seconds=grand_total), width=max_width))
 
 def duration(*, seconds):
-    duration = "P"
+    duration = "P" # pylint: disable=redefined-outer-name
     for interval, interval_seconds in __time_intervals.items():
         logger.debug("%s is %s long", interval, interval_seconds)
         (interval_value, seconds) = divmod(seconds, interval_seconds)
