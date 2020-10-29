@@ -1,4 +1,4 @@
-# pylint: disable=missing-module-docstring,missing-function-docstring,import-error
+# pylint: disable=missing-module-docstring,missing-function-docstring
 __version__ = '0.1.0'
 
 import math
