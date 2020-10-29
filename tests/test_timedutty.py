@@ -2,7 +2,7 @@
 from timewarrior_report_timedutty import __time_intervals, __version__
 
 
-def gurken():
+def gurken(*, seconds):
     return "P1H30M"
 
 def test_version():
