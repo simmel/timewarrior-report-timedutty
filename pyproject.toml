@@ -8,6 +8,10 @@ authors = ["Simon Lundström <simlu+github@su.se>"]
 python = "^3.5"
 timew-report = "^1.3"
 
+[tool.poetry.dev-dependencies]
+pytest = "^6.1.2"
+pylint = "^2.6.0"
+
 [tool.poetry.scripts]
 timewarrior-report-timedutty = 'timewarrior_report_timedutty:main'
 
