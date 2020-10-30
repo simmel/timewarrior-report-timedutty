@@ -4,8 +4,9 @@ __version__ = '0.1.0'
 import logging
 import sys
 from collections import OrderedDict
+from typing import Dict
 
-from timewreport.parser import TimeWarriorParser
+import timewreport
 
 # weeks? = 5 days a week 144000
 # days = 8 hours in a day 28800
@@ -19,7 +20,7 @@ __time_intervals = OrderedDict({
 logger = logging.getLogger('timedutty')
 
 def main():
-    parser = TimeWarriorParser(sys.stdin)
+    parser = timewreport.parser.TimeWarriorParser(sys.stdin)
 
     totals = dict()
 
