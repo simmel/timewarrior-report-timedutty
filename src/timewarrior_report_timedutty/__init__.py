@@ -22,7 +22,7 @@ logger = logging.getLogger('timedutty')
 def main() -> None:
     parser = timewreport.parser.TimeWarriorParser(sys.stdin)
 
-    totals = dict()
+    totals: Dict[str, timewreport.interval.TimeWarriorInterval] = dict()
 
     for interval in parser.get_intervals():
         tracked = interval.get_duration()
