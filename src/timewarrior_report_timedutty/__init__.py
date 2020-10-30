@@ -19,7 +19,7 @@ __time_intervals = OrderedDict({
 
 logger = logging.getLogger('timedutty')
 
-def main():
+def main() -> None:
     parser = timewreport.parser.TimeWarriorParser(sys.stdin)
 
     totals = dict()
