@@ -12,6 +12,7 @@ timew-report = "^1.3"
 pytest = "^6.1.2"
 pylint = "^2.6.0"
 wrapt = "^1.12.1"
+mypy = "^0.790"
 
 [tool.poetry.scripts]
 timewarrior-report-timedutty = 'timewarrior_report_timedutty:main'
