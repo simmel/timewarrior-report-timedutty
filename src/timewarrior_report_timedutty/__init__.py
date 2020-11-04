@@ -6,7 +6,7 @@ import sys
 from collections import OrderedDict
 from typing import Dict
 
-import timewreport
+import timewreport.parser
 
 # weeks? = 5 days a week 144000
 # days = 8 hours in a day 28800
