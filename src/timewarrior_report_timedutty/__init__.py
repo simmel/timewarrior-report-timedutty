@@ -1,5 +1,5 @@
 # pylint: disable=missing-module-docstring,missing-function-docstring
-__version__ = '0.1.0'
+__version__ = "0.1.0"
 
 import logging
 import sys
@@ -12,12 +12,15 @@ import timewreport.parser
 # days = 8 hours in a day 28800
 # hours = 3600
 # minutes = 60
-__time_intervals = OrderedDict({
-    "H": 3600,
-    "M": 60,
-    })
+__time_intervals = OrderedDict(
+    {
+        "H": 3600,
+        "M": 60,
+    }
+)
 
-logger = logging.getLogger('timedutty')
+logger = logging.getLogger("timedutty")
+
 
 def main() -> None:
     parser = timewreport.parser.TimeWarriorParser(sys.stdin)
@@ -34,33 +37,38 @@ def main() -> None:
             totals[tag] = tracked
 
     # Determine largest tag width.
-    max_width = len('Total')
+    max_width = len("Total")
 
     for tag in totals:
         if len(tag) > max_width:
             max_width = len(tag)
 
     # Compose report header.
-    print('Total by Tag')
-    print('')
+    print("Total by Tag")
+    print("")
 
     # Compose table header.
-    print('{:{width}} {:>10}'.format('Tag', 'Total', width=max_width))
-    print('{} {}'.format('-' * max_width, '----------'))
+    print("{:{width}} {:>10}".format("Tag", "Total", width=max_width))
+    print("{} {}".format("-" * max_width, "----------"))
 
     # Compose table rows.
     grand_total = 0
     for tag in sorted(totals):
         formatted = duration(seconds=totals[tag].total_seconds())
         grand_total += totals[tag].total_seconds()
-        print('{:{width}} {:10}'.format(tag, formatted, width=max_width))
+        print("{:{width}} {:10}".format(tag, formatted, width=max_width))
 
     # Compose total.
-    print('{} {}'.format(' ' * max_width, '----------'))
-    print('{:{width}} {:10}'.format('Total', duration(seconds=grand_total), width=max_width))
+    print("{} {}".format(" " * max_width, "----------"))
+    print(
+        "{:{width}} {:10}".format(
+            "Total", duration(seconds=grand_total), width=max_width
+        )
+    )
+
 
 def duration(*, seconds: int) -> str:
-    duration = "P" # pylint: disable=redefined-outer-name
+    duration = "P"  # pylint: disable=redefined-outer-name
     for interval, interval_seconds in __time_intervals.items():
         logger.debug("%s is %s long", interval, interval_seconds)
         (interval_value, seconds) = divmod(seconds, interval_seconds)
