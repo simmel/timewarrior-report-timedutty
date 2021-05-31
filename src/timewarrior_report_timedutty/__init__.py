@@ -27,10 +27,32 @@ def main() -> None:
 
     totals: Dict[str, timewreport.interval.TimeWarriorInterval] = dict()
 
+    def sort_by_activity(tag):
+        log = logger.getChild("sort_by_activity")
+        aktiviteter = [
+                "Vidareutveckling",
+                "Underhåll",
+                "Incidenthantering",
+                "Manuella rutiner",
+                "Användarstöd",
+                "Förvaltningsstyrning",
+                ]
+
+        if tag in aktiviteter:
+            log.debug("%s returning: 2", tag)
+            return 2
+        else:
+            log.debug("%s returning: 1", tag)
+            return 1
+
     for interval in parser.get_intervals():
         tracked = interval.get_duration()
 
-        tag = " ".join(interval.get_tags())
+        tags = interval.get_tags()
+        logger.debug("before: %r", tags)
+        tags = sorted(tags, key=sort_by_activity)
+        logger.debug("after: %r", tags)
+        tag = " ".join(tags)
         if tag in totals:
             totals[tag] += tracked
         else:
